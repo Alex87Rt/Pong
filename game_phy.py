@@ -13,8 +13,8 @@ class PlayerPhy:
 # класс длля расчета физики
 class GamePhy:
     def __init__(self):
-        self.l_player = PlayerPhy()
-        self.r_player = PlayerPhy()
+        self.l_player = PlayerPhy({"x": 50.0, "y": 200.0}, "left_player")
+        self.r_player = PlayerPhy({"x": 950.0, "y": 200.0}, "right_player")
         self.ball = {"name": "ball", "x": 500.0, "y": 200.0}
 
         #по умолчанию координаты пересчитываются 64 раза в секунду

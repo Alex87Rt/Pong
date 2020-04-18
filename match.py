@@ -1,4 +1,4 @@
-from Threading import Thread #вычисления в матче должны проходить в отдельном потоке
+from threading import Thread #вычисления в матче должны проходить в отдельном потоке
 from game_phy import GamePhy
 
 
@@ -6,6 +6,7 @@ from game_phy import GamePhy
 # отвечает за игровую логику
 class Match(Thread):
     def __init__(self, ui_update_callback=None):
+        Thread.__init__(self)
         self.ui_update_callback = ui_update_callback
 
         self.phy = GamePhy()
@@ -17,7 +18,7 @@ class Match(Thread):
         # производим расчеты новых координат
         self.phy.tick()
 
-        # обновляем позиции объектов
+        # обновляем позиции объектов на фронт энде
         self._update(self.phy.l_player.get_pos())
         self._update(self.phy.r_player.get_pos())
         self._update(self.phy.ball)
@@ -25,6 +26,11 @@ class Match(Thread):
         # проверяем столкновения
         # TODO
 
-    def _update(self, ui_object):# Эту функцию надо вызывать чтобы обновить объект на интерфейсе
+    def key_event(self, key):
+        # TODO сделать обработку нажатия клавиш
+        pass
+
+    # Эту функцию надо вызывать чтобы обновить объект на интерфейсе
+    def _update(self, ui_object):
         if self.ui_update_callback and ui_object:
             self.ui_update_callback(ui_object)
